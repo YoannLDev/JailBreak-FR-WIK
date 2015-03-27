@@ -1,0 +1,15 @@
+Lignes 1 à 2168 : Variable "complete" qui réunit tout les mots à échanger.
+		Les premières lignes de commentaires ne me servent qu'a moi pour savoir où j'en suis dans le travail d'ajout des mots.
+
+Ligne 2191 : Expression régulière pour sélectionner les mots de la variable Complete
+
+Ligne 2218 : map[word] correspond aux mots une fois échangés. (Et uniquement ceux-la. C'est sur cette commande qu'on peut, je pense, décider de mettre les mots changés en valeur (gras, couleur, taille...)
+		
+
+Lignes 2233 à 2244 : C'est la fonction qui crée la liste des mots tirés du texte d'origine et va ensuite chercher leur équivalence dans la liste de mots pour les transformer.
+
+lignes 2247 à 2255 : C'est la fonction qui fait fonctionner l'extension.
+
+
+
+Pour faire les tests, j'utilise "Chrome Apps & Extensions Developer Tools", qui permet d'installer l'extension en local pour faire les tests.
