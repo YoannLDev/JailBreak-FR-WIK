@@ -1,8 +1,8 @@
 {
-  "name": "Jailbreak the Patriarchy Version FR 0.1 Alpha",
-  "version": "0.1",
+  "name": "Jailbreak the Patriarchy FR v0.5 Alpha",
+  "version": "0.5",
   "manifest_version": 2,
-  "description": "Extension d'inversion du genre dans tout les textes en français.",
+  "description": "Extension d'inversion du genre dans les textes français.",
   "background": {
     "page": "background.html"
   },
@@ -14,7 +14,7 @@
   ],
   "browser_action": {
     "default_icon": "icon19.png",
-    "default_title": "Changer le genre"
+    "default_title": "Changer le genre."
   },
   "content_scripts": [
     {

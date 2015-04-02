@@ -716,7 +716,7 @@ var complete = {
   'cistercien': 'cistercienne', 'cistercienne': 'cistercien', 'cisterciens': 'cisterciennes', 'cisterciennes': 'cisterciens',
   'citadin': 'citadine', 'citadine': 'citadin', 'citadins': 'citadines', 'citadines': 'citadins',
   'cité': 'citée', 'citée': 'cité','cités': 'citées', 'citées': 'cités',
-  'citoyen': 'citoyenne', 'citoyenne': 'citoyen', 'citoyenne': 'citoyen', 'citoyen': 'citoyenne',
+  'citoyen': 'citoyenne', 'citoyenne': 'citoyen', 'citoyens': 'citoyennes', 'citoyennes': 'citoyens',
   'civil': 'civile', 'civile': 'civil', 'civils': 'civiles', 'civiles': 'civils',
   'clandestin': 'clandestine', 'clandestine': 'clandestin', 'clandestins': 'clandestines', 'clandestines': 'clandestins',
   'clarifié': 'clarifiée', 'clarifiée': 'clarifié','clarifiés': 'clarifiées', 'clarifiées': 'clarifiés',
@@ -1740,7 +1740,7 @@ var complete = {
   'paternel': 'maternel', 'maternel': 'paternel','paternels': 'maternelles', 'maternelles': 'paternels', 'paternité': 'maternité', 'maternité': 'paternité',
   'patissier': 'patissière', 'patissière': 'patissier','patissiers': 'patissières', 'patissières': 'patissiers',
   'patriarche': 'matriarche', 'matriarche': 'patriarche',
-/*M*/'patrie': 'pays', 'pays': 'patrie', 'patries': 'pays',
+/*M*/'la patrie': 'la matrie', 'pays': 'patrie', 'patries': 'pays',
   'patron': 'patrone', 'patrone': 'patron','patrone': 'patron', 'patron': 'patrone',
   'paumé': 'paumée', 'paumée': 'paumé','paumés': 'paumées', 'paumées': 'paumés',
   'pavé': 'pavée', 'pavée': 'pavé','pavés': 'pavées', 'pavées': 'pavés',
@@ -2188,7 +2188,7 @@ var concatString = function(obj) {
   return parts.join('|');
 };
 
-var regex = '\\b(' + concatString(complete) + ')\\b';
+var regex = '^('+ concatString(complete) + ')$' ;
 
 var searchFor = new RegExp(regex, 'ig');
 
@@ -2207,7 +2207,7 @@ function matchCase(old_word, replacement) {
   var first = old_word.charAt(0);
   var second = old_word.charAt(1);
 
-  if (/[a-z]/.test(first)) return replacement.toLowerCase();
+  if (/[a-zâêîôûäëïöüéèàç]/.test(first)) return replacement.toLowerCase();
   if (/[A-Z]/.test(second)) return replacement.toUpperCase();
 
   return capitalize(replacement); 
@@ -2220,13 +2220,21 @@ function findMatch(word) {
 
 //Fonction qui remplace un mot par un autre en utilisant la fonction matchCase
 function swapWord(word) {
-  return matchCase(word, word.toLowerCase().replace(searchFor, findMatch));
+  var suf="";
+
+  if (/[^0-9_a-zâêîôûäëïöüéèà']$/ig.test(word)){
+      suf=word.substring(word.length - 1,word.length);
+      word=word.substring(0,word.length - 1);
+  }
+
+  return matchCase(word, word.toLowerCase().replace(searchFor, findMatch))+ suf;
 }
 
 //Fonction qui translate les mots masculins/féminin
 function genderswap(text) {
   return text
-   .replace(/\b([a-zâêîôûäëïöüéèà][\w\']+)\b/gi, swapWord);
+   // .replace(/\b([a-zâêîôûäëïöüéèà][\w\']+)\b/gi, swapWord);
+   .replace(/\b[a-zâêîôûäëïöüéèà][a-zâêîôûäëïöüéèà\']+[^0-9_a-zâêîôûäëïöüéèà]?/gi, swapWord);
 }
 
 // Fonction de recherche des mots pour les traduire (= genderswap();)
